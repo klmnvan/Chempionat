@@ -19,6 +19,7 @@ class OnBoard : AppCompatActivity(), GestureDetector.OnGestureListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        gestureDetector = GestureDetector(this@OnBoard, this@OnBoard)
         queue = LinkedList(listOf(
             OnBoardModel("Анализы", "Экспресс сбор и получение проб", "Пропустить",
                 getDrawable(R.drawable.icon_analizi)!!, getDrawable(R.drawable.point_style_blue)!!,
@@ -28,7 +29,7 @@ class OnBoard : AppCompatActivity(), GestureDetector.OnGestureListener {
                 getDrawable(R.drawable.point_style_blue)!!,getDrawable(R.drawable.point_style_stroke)!!,),
             OnBoardModel("Мониторинг", "Наши врачи всегда наблюдают за вашими показателями здоровья", "Завершить",
                 getDrawable(R.drawable.icon_analizi)!!, getDrawable(R.drawable.point_style_stroke)!!,
-                getDrawable(R.drawable.point_style_stroke)!!,getDrawable(R.drawable.point_style_blue)!!,),
+                getDrawable(R.drawable.point_style_stroke)!!,getDrawable(R.drawable.point_style_blue)!!,)
         ))
         enterOnBoard(queue.poll())
         init()

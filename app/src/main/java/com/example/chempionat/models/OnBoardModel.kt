@@ -1,7 +1,6 @@
 package com.example.chempionat.models
 
 import android.graphics.drawable.Drawable
-import android.media.Image
 
 data class OnBoardModel(
     var title: String,
@@ -10,5 +9,5 @@ data class OnBoardModel(
     var image: Drawable,
     var p1: Drawable,
     var p2: Drawable,
-    var p3: Drawable,
+    var p3: Drawable
 )

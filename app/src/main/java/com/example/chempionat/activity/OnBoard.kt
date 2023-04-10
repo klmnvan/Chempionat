@@ -18,59 +18,50 @@ class OnBoard : AppCompatActivity(), GestureDetector.OnGestureListener {
     lateinit var gestureDetector: GestureDetector
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityOnBoardBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        gestureDetector = GestureDetector(this@OnBoard, this@OnBoard)
-        queue =
-            LinkedList(listOf(
-                OnBoardModel("Пропустить","Анализы", "Экспресс сбор и получение проб",
-                    getDrawable(R.drawable.icon_analizi)!!, getDrawable(R.drawable.point_style_blue)!!,
-                    getDrawable(R.drawable.point_style_stroke)!!, getDrawable(R.drawable.point_style_stroke)!!),
-                OnBoardModel("Пропустить","Уведомления", "Вы быстро узнаете о результатах",
-                    getDrawable(R.drawable.icon_yved)!!, getDrawable(R.drawable.point_style_stroke)!!,
-                    getDrawable(R.drawable.point_style_blue)!!, getDrawable(R.drawable.point_style_stroke)!!),
-                OnBoardModel("Завершить","Мониторинг", "Наши врачи всегда наблюдают за вашими показателями здоровья",
-                    getDrawable(R.drawable.icon_monitor)!!, getDrawable(R.drawable.point_style_stroke)!!,
-                    getDrawable(R.drawable.point_style_stroke)!!, getDrawable(R.drawable.point_style_blue)!!),
-            ))
+        queue = LinkedList(listOf(
+            OnBoardModel("Анализы", "Экспресс сбор и получение проб", "Пропустить",
+                getDrawable(R.drawable.icon_analizi)!!, getDrawable(R.drawable.point_style_blue)!!,
+                getDrawable(R.drawable.point_style_stroke)!!,getDrawable(R.drawable.point_style_stroke)!!,),
+            OnBoardModel("Уведомления", "Вы быстро узнаете о результатах", "Пропустить",
+                getDrawable(R.drawable.icon_analizi)!!, getDrawable(R.drawable.point_style_stroke)!!,
+                getDrawable(R.drawable.point_style_blue)!!,getDrawable(R.drawable.point_style_stroke)!!,),
+            OnBoardModel("Мониторинг", "Наши врачи всегда наблюдают за вашими показателями здоровья", "Завершить",
+                getDrawable(R.drawable.icon_analizi)!!, getDrawable(R.drawable.point_style_stroke)!!,
+                getDrawable(R.drawable.point_style_stroke)!!,getDrawable(R.drawable.point_style_blue)!!,),
+        ))
         enterOnBoard(queue.poll())
         init()
-
     }
 
     fun init(){
-        with(binding!!){
-            textTopscreen.setOnClickListener(){
-                startActivity(Intent(this@OnBoard, InputRegist::class.java))
-                finish()
-            }
+        binding.textTopscreen.setOnClickListener(){
+            startActivity(Intent(this@OnBoard, InputRegist::class.java))
+            finish()
         }
     }
 
-    /**
-     * Отдельный метод, с помощью которого мы берем данные из заполенного листа (LinkedList)
-     * и помещаем их соответствующий объект в layout
-     */
-    private fun enterOnBoard(onBoardModel: OnBoardModel){
+    fun enterOnBoard(onBoardModel: OnBoardModel){
         with(binding){
-            textTopscreen.text = onBoardModel.button
             textName.text = onBoardModel.title
             textDes.text = onBoardModel.description
+            textTopscreen.text = onBoardModel.button
             picture.setImageDrawable(onBoardModel.image)
             pointFirst.setImageDrawable(onBoardModel.p1)
             pointSecond.setImageDrawable(onBoardModel.p2)
             pointThird.setImageDrawable(onBoardModel.p3)
-            MainActivity.goActicity.bool = true
         }
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         return if(gestureDetector.onTouchEvent(event!!)){
             true
-        }else{
+        }
+        else {
             return super.onTouchEvent(event)
         }
     }
+
     override fun onDown(e: MotionEvent): Boolean {
         return false
     }
@@ -87,15 +78,14 @@ class OnBoard : AppCompatActivity(), GestureDetector.OnGestureListener {
     }
 
     override fun onLongPress(e: MotionEvent) {
-
     }
 
     override fun onFling(e1: MotionEvent, e2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
-        val diffY = e2.y - e1.y
-        val diffX = e2.x - e1.x
+        var diffX = e2.x - e1.x
+        var diffY = e2.y - e1.y
         if(abs(diffX)>abs(diffY)){
-            if(abs(diffX)>100 && abs(velocityX) > 100){
-                if(diffX<0){
+            if(abs(diffX) > 100 && abs(velocityX) > 100){
+                if(diffX < 0){
                     if(queue.size != 0){
                         enterOnBoard(queue.poll())
                     }

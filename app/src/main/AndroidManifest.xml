@@ -15,6 +15,18 @@
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
         tools:targetApi="31">
         <activity
+            android:name=".Home"
+            android:exported="false" />
+        <activity
+            android:name=".CreateMap"
+            android:exported="false" />
+        <activity
+            android:name=".activity.CreatePassword"
+            android:exported="false" />
+        <activity
+            android:name=".activity.InputCode"
+            android:exported="false" />
+        <activity
             android:name=".activity.InputRegist"
             android:exported="false" />
         <activity

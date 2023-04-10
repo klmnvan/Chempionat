@@ -4,6 +4,126 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.InputRegist">
+    tools:context=".activity.InputRegist"
+    android:background="@color/white">
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="276dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="70dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="32dp"
+            android:layout_height="wrap_content"
+            android:scaleType="fitStart"
+            app:srcCompat="@drawable/icon_hello" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:fontFamily="@font/lato_medium"
+            android:text="Добро пожаловать!"
+            android:textColor="@color/black"
+            android:textSize="24dp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/TextVoidite"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:layout_marginHorizontal="20dp"
+        android:textColor="@color/black"
+        android:text="Войдите, чтобы пользоваться функциями приложения"
+        android:textSize="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+    <TextView
+        android:id="@+id/vhod_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:layout_marginStart="20dp"
+        android:text="Вход по E-mail"
+        android:textSize="14dp"
+        android:textColor="#7E7E9A"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/TextVoidite" />
+
+    <EditText
+        android:id="@+id/input_emailtext"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginHorizontal="20dp"
+        android:background="@drawable/shape_input_text"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        android:textColor="#60000000"
+        android:padding="14dp"
+        android:textSize="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vhod_email" />
+
+    <Button
+        android:id="@+id/button_dalee"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginHorizontal="20dp"
+        android:text="Далее"
+        android:textSize="18dp"
+        style="?android:buttonBarButtonStyle"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:background="@drawable/shape_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/input_emailtext" />
+
+    <TextView
+        android:id="@+id/text_nad_vhod_yandex"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Или войдите с помощью"
+        android:textSize="15dp"
+        android:fontFamily="@font/pro_display"
+        app:layout_constraintBottom_toTopOf="@+id/vhod_yandex"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/vhod_yandex"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="55dp"
+        android:text="Войти с Яндекс"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:fontFamily="@font/lato_medium"
+        android:textSize="17dp"
+        android:textAllCaps="false"
+        android:background="@drawable/style_rect10_bwhite_strgrey"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        style="?android:buttonBarButtonStyle"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

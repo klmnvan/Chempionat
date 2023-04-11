@@ -31,6 +31,10 @@ class InputRegist : AppCompatActivity() {
         textChanged()
     }
 
+    /**
+     * textChanged() - отдельный метод, в который кладём событие отслеживания состояния
+     * поля ввода для email
+     */
     fun textChanged(){
         with(binding){
             inputEmailtext.addTextChangedListener(object : TextWatcher{
@@ -51,6 +55,11 @@ class InputRegist : AppCompatActivity() {
             })
         }
     }
+
+    /**
+     * init() - отдельный метод, в который кладём событие нажатия на кнопку, внутри которого
+     * отправляем запрос на сервер, если символов в поле больше 3.
+     */
 
     fun init(){
         with(binding){

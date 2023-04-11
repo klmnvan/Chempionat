@@ -116,7 +116,6 @@ class CreateMap : AppCompatActivity() {
                 Person.person = PersonModel(0,binding.inputTextSurname.text.toString(),binding.inputTextName.text.toString(),binding.inputTextPatronymic.text.toString(),
                     binding.inputTextBirthday.text.toString(), gender,"1")
                 val intent = Intent(this@CreateMap, Home::class.java)
-                //postData()
                 startActivity(intent)
             }
         }

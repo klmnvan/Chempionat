@@ -3,6 +3,7 @@ package com.example.chempionat.activity
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -39,10 +40,13 @@ class InputCode : AppCompatActivity() {
         timer()
     }
 
+    /**
+     * timer() - отдельный метод, в котором запускается таймер
+     */
     fun timer(){
-        val timer = object : CountDownTimer(60000, 1000){
+        val timer = object : CountDownTimer(600000, 1000){
             override fun onTick(millisUntilFinished: Long) {
-                val sec = millisUntilFinished / 1000
+                var sec = millisUntilFinished / 1000
                 binding.textTimer.text = "Отправить код повторно можно будет через ${sec} секунд"
             }
             override fun onFinish() {
@@ -133,6 +137,14 @@ class InputCode : AppCompatActivity() {
                     catch (e: Exception){
                         bool = false
                         Log.d(ContentValues.TAG, e.toString())
+                        var prefPerson: SharedPreferences = getSharedPreferences("Person", Context.MODE_PRIVATE)
+                        var eP = prefPerson.edit()
+                        eP.putString("email", email)
+                        eP.apply()
+                        var prefAct: SharedPreferences = getSharedPreferences("Act", Context.MODE_PRIVATE)
+                        var eA = prefAct.edit()
+                        eA.putInt("indAct", 2)
+                        eA.apply()
                         startActivity(Intent(this@InputCode, CreatePassword::class.java))
                         finish()
                     }

@@ -33,6 +33,11 @@ class MainActivity : AppCompatActivity() {
                         startActivity(Intent(this@MainActivity, InputRegist::class.java))
                         finish()
                     }
+
+                    if(indAct == 2){
+                        startActivity(Intent(this@MainActivity, CreatePassword::class.java))
+                        finish()
+                    }
                 }
                 catch (e: InterruptedException){
                     e.printStackTrace()

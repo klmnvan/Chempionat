@@ -27,7 +27,7 @@ class AdapterNews: RecyclerView.Adapter<AdapterNews.Holder>() {
         return Holder(view)
     }
 
-    override fun onBindViewHolder(holder: AdapterNews.Holder, position: Int) {
+    override fun onBindViewHolder(holder: Holder, position: Int) {
         holder.bind(listNews[position])
     }
 

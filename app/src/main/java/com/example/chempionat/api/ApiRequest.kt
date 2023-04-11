@@ -6,7 +6,7 @@ import retrofit2.http.Header
 import retrofit2.http.POST
 
 interface ApiRequest {
-    @GET("/api/news")
+    @GET("/api/catalog")
     fun getCatalog(): Call<List<CatalogModel>>
     @GET("/api/news")
     fun getNews(): Call<List<NewsModel>>

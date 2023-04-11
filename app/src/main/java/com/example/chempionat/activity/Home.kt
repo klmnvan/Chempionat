@@ -72,7 +72,7 @@ class Home : AppCompatActivity() {
                 }
                 if(responseCat.isSuccessful){
                     var data = responseCat.body()!!
-                    var listCategory: List<String> = data.map { it.category }.toSet().toList()
+                    var listCategory = data.map { it.category }.toSet().toList()
                     runOnUiThread { initCategory(listCategory) }
                     var listCatalog = data.filter { it.category == listCategory[0] }
                     runOnUiThread { initCatalog(listCatalog) }

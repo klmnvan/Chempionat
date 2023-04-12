@@ -21,6 +21,8 @@ class Home : AppCompatActivity(), AdapterCategory.Listener {
     val adapterNews = AdapterNews()
     val adapterCategory = AdapterCategory(this)
     val adapterCatalog = AdapterCatalog()
+
+    ///ИЗМЕНЕНИЯ ДЛЯ ГИТА
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)

@@ -16,10 +16,10 @@ import retrofit2.awaitResponse
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 
-class Home : AppCompatActivity() {
+class Home : AppCompatActivity(), AdapterCategory.Listener {
     lateinit var binding: ActivityHomeBinding
     val adapterNews = AdapterNews()
-    val adapterCategory = AdapterCategory()
+    val adapterCategory = AdapterCategory(this)
     val adapterCatalog = AdapterCatalog()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,6 +57,8 @@ class Home : AppCompatActivity() {
             }
         }
     }
+
+    lateinit var allListCatalog: List<CatalogModel>
     fun getData(){
         val api = Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
@@ -74,12 +76,19 @@ class Home : AppCompatActivity() {
                     var data = responseCat.body()!!
                     var listCategory = data.map { it.category }.toSet().toList()
                     runOnUiThread { initCategory(listCategory) }
-                    var listCatalog = data.filter { it.category == listCategory[0] }
+                    allListCatalog = data
+                    var listCatalog = allListCatalog.filter { it.category == listCategory[0] }
                     runOnUiThread { initCatalog(listCatalog) }
                 }
             } catch (e: Exception){
                 Log.d(ContentValues.TAG, e.toString())
             }
         }
+    }
+
+    override fun getCatalog(catalog: String, position: Int) {
+        adapterCatalog.listCatalog.clear()
+        var listCatalog = allListCatalog.filter { it.category == catalog }
+        initCatalog(listCatalog)
     }
 }

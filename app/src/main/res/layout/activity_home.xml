@@ -13,10 +13,7 @@
             android:id="@+id/PoiskRow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_marginTop="40dp">
 
             <LinearLayout
                 android:id="@+id/containerPoisk"
@@ -35,18 +32,6 @@
                     android:padding="8dp"
                     app:srcCompat="@drawable/icon_lupa" />
 
-                <!--<SearchView
-                    android:iconifiedByDefault="false"
-                    android:id="@+id/strokePoisk"
-                    android:layout_width="wrap_content"
-                    android:layout_height="45dp"
-                    android:layout_weight="1"
-                    android:backgroundTint="#F5F5F9"
-                    android:fontFamily="@font/pro_display"
-                    android:gravity="center_vertical"
-                    android:hint="Искать анализы"
-                    android:padding="14dp"
-                    android:textSize="16dp" />-->
                 <EditText
                     android:id="@+id/strokePoisk"
                     android:layout_width="wrap_content"
@@ -60,7 +45,7 @@
                     android:textSize="16dp" />
 
                 <ImageView
-                    android:visibility="gone"
+                    android:visibility="visible"
                     android:id="@+id/buttonKrestic"
                     android:layout_marginEnd="14dp"
                     android:layout_gravity="center"
@@ -97,14 +82,12 @@
             android:layout_below="@+id/PoiskRow"
             android:layout_above="@id/LinGoBasket"
             android:visibility="visible"
-            android:layout_alignParentBottom="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="match_parent">
 
                 <TextView
                     android:id="@+id/textView"
@@ -125,7 +108,6 @@
                     android:layout_height="152dp"
                     android:layout_marginTop="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView">
 

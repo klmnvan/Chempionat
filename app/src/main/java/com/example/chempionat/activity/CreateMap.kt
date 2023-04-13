@@ -11,13 +11,15 @@ import android.widget.AdapterView
 import android.widget.TextView
 import com.example.chempionat.R
 import com.example.chempionat.databinding.ActivityCreateMapBinding
+import com.example.chempionat.models.AddressModel
 import com.example.chempionat.models.Person
 import com.example.chempionat.models.PersonModel
 
-class CreateMap : AppCompatActivity() {
+class CreateMap : AppCompatActivity(), FragmentAddress.Listener {
     lateinit var binding: ActivityCreateMapBinding
     var index: Int = 0
     lateinit var gender: String
+    var fragmentAddress = FragmentAddress(this@CreateMap)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,7 +55,10 @@ class CreateMap : AppCompatActivity() {
         init()
     }
     fun init(){
-        binding.inputTextName.addTextChangedListener(object : TextWatcher {
+        binding.adress.setOnClickListener(){
+
+        }
+        binding.adress.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
 
@@ -61,7 +66,7 @@ class CreateMap : AppCompatActivity() {
             }
 
             override fun afterTextChanged(s: Editable?) {
-                    binding.inputTextName.background = getDrawable(R.drawable.map_input_style)
+                binding.adress.background = getDrawable(R.drawable.map_input_style)
                 textChecked()
             }
         })
@@ -109,15 +114,23 @@ class CreateMap : AppCompatActivity() {
 
     fun textChecked()
     {
-        if(binding!!.inputTextName.text.isNotEmpty() && binding!!.inputTextPatronymic.text.isNotEmpty()
+        if(binding!!.adress.text.isNotEmpty() && binding!!.inputTextPatronymic.text.isNotEmpty()
             && binding!!.inputTextSurname.text.isNotEmpty() && binding!!.inputTextBirthday.text.isNotEmpty() && index != 0){
             binding!!.buttonCreate.background = getDrawable(R.drawable.shape_button2)
             binding!!.buttonCreate.setOnClickListener{
-                Person.person = PersonModel(0,binding.inputTextSurname.text.toString(),binding.inputTextName.text.toString(),binding.inputTextPatronymic.text.toString(),
+                Person.person = PersonModel(0,binding.inputTextSurname.text.toString(),binding.adress.text.toString(),binding.inputTextPatronymic.text.toString(),
                     binding.inputTextBirthday.text.toString(), gender,"1")
                 val intent = Intent(this@CreateMap, Home::class.java)
                 startActivity(intent)
             }
         }
     }
+
+    override fun setText(addressModel: AddressModel) {
+        val thisAddress = addressModel.address + " kv. " + addressModel.kvartira
+        binding.adress.setText(thisAddress)
+        fragmentAddress.dismiss()
+    }
+
+
 }

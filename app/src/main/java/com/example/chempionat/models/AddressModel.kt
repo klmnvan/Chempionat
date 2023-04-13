@@ -1,4 +1,4 @@
-package com.example.chemp_podject.models
+package com.example.chempionat.models
 
 data class AddressModel(
     var address: String,

@@ -60,7 +60,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/input_text_name"
+        android:id="@+id/adress"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginHorizontal="20dp"
@@ -70,7 +70,7 @@
         android:background="@drawable/map_input_style_null"
         android:ems="10"
         android:inputType="textPersonName"
-        android:hint="Имя"
+        android:hint="Адрес"
         android:textSize="15dp"
         android:fontFamily="@font/pro_display"
         android:textColorHint="#939396"
@@ -95,7 +95,7 @@
         android:textSize="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/input_text_name" />
+        app:layout_constraintTop_toBottomOf="@+id/adress" />
 
     <EditText
         android:id="@+id/input_text_surname"

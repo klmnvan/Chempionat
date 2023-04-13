@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#99000000">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/fragment_block_style">
+
+        <TextView
+            android:id="@+id/textMakeOrder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginHorizontal="20dp"
+            android:fontFamily="@font/pro_display"
+            android:text="Адрес сдачи анализов"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/buttonMap"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/icon_map" />
+
+        <TextView
+            android:id="@+id/textYourAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="20dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:fontFamily="@font/pro_display"
+            android:text="Ваш адрес"
+            android:textColor="#7E7E9A"
+            android:textSize="14dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textMakeOrder" />
+
+        <EditText
+            android:id="@+id/inputTextAddress"
+            style="?buttonBarButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginHorizontal="20dp"
+            android:background="@drawable/map_input_style_null"
+            android:fontFamily="@font/pro_display"
+            android:gravity="start|center"
+            android:inputType="text"
+            android:padding="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textYourAddress" />
+
+        <TableRow
+            android:id="@+id/rowDSV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="20dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/inputTextAddress">
+
+            <LinearLayout
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="start"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/textDolgota"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:fontFamily="@font/pro_display"
+                    android:text="Долгота"
+                    android:textColor="#7E7E9A"
+                    android:textSize="14dp" />
+
+                <EditText
+                    android:id="@+id/inputTextDolgota"
+                    style="?buttonBarButtonStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/map_input_style_null"
+                    android:fontFamily="@font/pro_display"
+                    android:gravity="start|center"
+                    android:inputType="number"
+                    android:padding="15dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_gravity="start">
+
+                <TextView
+                    android:id="@+id/textShirota"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:fontFamily="@font/pro_display"
+                    android:text="Широта"
+                    android:textColor="#7E7E9A"
+                    android:textSize="14dp" />
+
+                <EditText
+                    android:id="@+id/inputTextShirota"
+                    style="?buttonBarButtonStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/map_input_style_null"
+                    android:fontFamily="@font/pro_display"
+                    android:gravity="start|center"
+                    android:inputType="number"
+                    android:padding="15dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:orientation="vertical"
+                android:layout_weight="100"
+                android:layout_gravity="start">
+
+                <TextView
+                    android:id="@+id/textVisota"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:fontFamily="@font/pro_display"
+                    android:text="Высота"
+                    android:textColor="#7E7E9A"
+                    android:textSize="14dp" />
+
+                <EditText
+                    android:id="@+id/inputTextVisota"
+                    style="?buttonBarButtonStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/map_input_style_null"
+                    android:fontFamily="@font/pro_display"
+                    android:gravity="start|center"
+                    android:inputType="number"
+                    android:padding="15dp"/>
+            </LinearLayout>
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/rowKPE"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="20dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rowDSV">
+
+            <LinearLayout
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textKvartira"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:fontFamily="@font/pro_display"
+                    android:text="Квартира"
+                    android:textColor="#7E7E9A"
+                    android:textSize="14dp" />
+
+                <EditText
+                    android:id="@+id/inputTextKvartira"
+                    style="?buttonBarButtonStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/map_input_style_null"
+                    android:fontFamily="@font/pro_display"
+                    android:gravity="start|center"
+                    android:inputType="number"
+                    android:padding="15dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginStart="18dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textPodyezd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:fontFamily="@font/pro_display"
+                    android:text="Подъезд"
+                    android:textColor="#7E7E9A"
+                    android:textSize="14dp" />
+
+                <EditText
+                    android:id="@+id/inputTextPodyezd"
+                    style="?buttonBarButtonStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/map_input_style_null"
+                    android:fontFamily="@font/pro_display"
+                    android:gravity="start|center"
+                    android:inputType="number"
+                    android:padding="15dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginStart="18dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textEtazh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:fontFamily="@font/pro_display"
+                    android:text="Этаж"
+                    android:textColor="#7E7E9A"
+                    android:textSize="14dp" />
+
+                <EditText
+                android:id="@+id/inputTextEtazh"
+                style="?buttonBarButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/map_input_style_null"
+                android:fontFamily="@font/pro_display"
+                android:gravity="start|center"
+                android:inputType="number"
+                android:padding="15dp" />
+
+            </LinearLayout>
+        </TableRow>
+
+        <TextView
+            android:id="@+id/textDomophon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="20dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/pro_display"
+            android:text="Домофон"
+            android:textColor="#7E7E9A"
+            android:textSize="14dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rowKPE" />
+
+        <EditText
+            android:id="@+id/inputTextDomophon"
+            style="?buttonBarButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginHorizontal="20dp"
+            android:background="@drawable/map_input_style_null"
+            android:fontFamily="@font/pro_display"
+            android:gravity="start|center"
+            android:inputType="text"
+            android:padding="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textDomophon" />
+
+        <Switch
+            android:id="@+id/switchSaveAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:thumbTint="@color/blue"
+            android:trackTint="@color/grey"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/inputTextDomophon" />
+
+        <TextView
+            android:id="@+id/textSaveAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:text="Сохранить этот адрес?"
+            android:fontFamily="@font/pro_display"
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/inputTextDomophon" />
+
+        <TextView
+            android:id="@+id/buttonConfirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/button_home_blue_style"
+            android:fontFamily="@font/pro_display"
+            android:gravity="center"
+            android:padding="16dp"
+            android:text="Потвердить"
+            android:textColor="@color/white"
+            android:textSize="17dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textSaveAddress" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

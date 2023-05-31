@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         pref = getSharedPreferences("Act", Context.MODE_PRIVATE)
-        var indAct: Int = pref.getInt("indAct", 0)
+        var indAct: Int = pref.getInt("indAct", 1)
         var thread: Thread = object : Thread(){
             override fun run() {
                 try {

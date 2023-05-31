@@ -1,18 +1,16 @@
 package com.example.chempionat.api
 
+import com.example.chempionat.models.TokenModel
 import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface ApiRequest {
     @GET("/api/catalog")
     fun getCatalog(): Call<List<CatalogModel>>
     @GET("/api/news")
     fun getNews(): Call<List<NewsModel>>
-    @POST("/api/sendCode")
-    fun postEmail(@Header("email") email: String): Call<String>
-
-    @POST("/api/signin")
-    fun postCode(@Header("code") code: String, @Header("email") email: String): Call<String>
+    @POST("api/SendCode")
+    fun postEmail(@Header("User-email") email: String): Call<String>
+    @POST("api/SignIn")
+    fun postCode(@Header("User-email") email: String, @Header("User-code") code: String): Call<TokenModel>
 }

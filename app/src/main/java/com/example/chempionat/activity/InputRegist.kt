@@ -1,6 +1,7 @@
 package com.example.chempionat.activity
 
 import android.content.ContentValues
+import android.content.ContentValues.TAG
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -73,7 +74,7 @@ class InputRegist : AppCompatActivity() {
                         .build()
                     val api = Retrofit.Builder()
                         .addConverterFactory(GsonConverterFactory.create())
-                        .baseUrl("https://medic.madskill.ru")
+                        .baseUrl("http://iis.ngknn.ru/NGKNN/%D0%9C%D0%B0%D0%BC%D1%88%D0%B5%D0%B2%D0%B0%D0%AE%D0%A1/MedicMadlab/")
                         .client(httpClient)
                         .build()
                     val requestApi = api.create(ApiRequest::class.java)
@@ -83,7 +84,7 @@ class InputRegist : AppCompatActivity() {
                             Log.d("Response","success")
                         }
                         catch (e: Exception){
-                            Log.d(ContentValues.TAG, e.toString())
+                            Log.d(TAG, e.toString())
                         }
                     }
                     var intent = Intent(this@InputRegist, InputCode::class.java)

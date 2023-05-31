@@ -20,6 +20,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.awaitResponse
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
 class InputRegist : AppCompatActivity() {
     lateinit var binding: ActivityInputRegistBinding
@@ -68,7 +69,7 @@ class InputRegist : AppCompatActivity() {
                 email = inputEmailtext.text.toString()
                 if(inputEmailtext.text.length > 3){
                     val interceptor = HttpLoggingInterceptor()
-                    interceptor.level = HttpLoggingInterceptor.Level.BODY
+                    interceptor.level
                     val httpClient = OkHttpClient.Builder()
                         .addInterceptor(interceptor)
                         .build()

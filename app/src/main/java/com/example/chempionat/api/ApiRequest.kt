@@ -12,5 +12,5 @@ interface ApiRequest {
     @POST("api/SendCode")
     fun postEmail(@Header("User-email") email: String): Call<String>
     @POST("api/SignIn")
-    fun postCode(@Header("User-email") email: String, @Header("User-code") code: String): Call<TokenModel>
+    fun postCode(@Header("User-email") email: String, @Header("User-code") code: String): Call<String>
 }

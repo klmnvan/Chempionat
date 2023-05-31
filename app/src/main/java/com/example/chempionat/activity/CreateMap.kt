@@ -12,7 +12,7 @@ import android.widget.TextView
 import com.example.chempionat.R
 import com.example.chempionat.databinding.ActivityCreateMapBinding
 import com.example.chempionat.models.AddressModel
-import com.example.chempionat.models.Person
+import com.example.chempionat.Person
 import com.example.chempionat.models.PersonModel
 
 class CreateMap : AppCompatActivity(), FragmentAddress.Listener {

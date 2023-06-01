@@ -2,16 +2,17 @@ package com.example.chempionat.activity
 
 import android.content.ContentValues.TAG
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import com.example.chempionat.Person
 import com.example.chempionat.api.ApiRequest
 import com.example.chempionat.databinding.ActivityInputCodeBinding
-import com.example.chempionat.Person
+import com.google.gson.GsonBuilder
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -20,6 +21,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.awaitResponse
 import retrofit2.converter.gson.GsonConverterFactory
+
 
 class InputCode : AppCompatActivity() {
     lateinit var binding: ActivityInputCodeBinding
@@ -125,24 +127,29 @@ class InputCode : AppCompatActivity() {
                 val httpClient = OkHttpClient.Builder()
                     .addInterceptor(interceptor)
                     .build()
+                val gson = GsonBuilder() //Нужно, чтобы получилось принять строку с сервера и убрать ошибку в консоли
+                    .setLenient()
+                    .create()
                 val api = Retrofit.Builder()
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .baseUrl("https://medic.madskill.ru/")
+                    .addConverterFactory(GsonConverterFactory.create(gson))
+                    .baseUrl("http://iis.ngknn.ru/NGKNN/%D0%9C%D0%B0%D0%BC%D1%88%D0%B5%D0%B2%D0%B0%D0%AE%D0%A1/MedicMadlab/")
                     .client(httpClient)
                     .build()
                 val requestApi = api.create(ApiRequest::class.java)
                 CoroutineScope(Dispatchers.IO).launch {
                     try {
                         val response = requestApi.postCode(email, code).awaitResponse()
-                        if (response.isSuccessful){
-                            Log.d(TAG, response.body().toString())
-                            Person.token = response.body()?.token.toString()
+                        if(response.isSuccessful){
+                            val data = response.body()!!
+                            Log.d(TAG, "ТОКИН: " + data)
+                            Person.token = data
+                            runOnUiThread { token() }
+                        /*
+                            runOnUiThread { Person.token = data }*/
                         }
                         bool = false
-                        if(Person.token.isNotEmpty()){
-                            startActivity(Intent(this@InputCode, CreatePassword::class.java))
-                            runOnUiThread { Toast.makeText(this@InputCode, "Токин пришёл", Toast.LENGTH_SHORT).show() }
-                        }
+                        /*runOnUiThread { Toast.makeText(this@InputCode, "Код неверный",
+                            Toast.LENGTH_SHORT).show() }*/
                     }
                     catch (e: Exception){
                         bool = false
@@ -159,16 +166,27 @@ class InputCode : AppCompatActivity() {
                         finish()*/
                     }
                 }
-                if(bool){
-                    with(binding){
-                        num1.text = null
-                        num2.text = null
-                        num3.text = null
-                        num4.text = null
-                        num1.requestFocus()
-                    }
-                }
+            }
+        }
+    }
 
+    fun token(){
+        Log.d(TAG, "Я зашёл в token()")
+        if(Person.token.isNotEmpty()){
+            Toast.makeText(this@InputCode, "Токин пришёл", Toast.LENGTH_SHORT).show()
+            Log.d(TAG, "ТОКИН ПРИШЁЛ И ВСЁ ШИКАРНО")
+            startActivity(Intent(this@InputCode, CreatePassword::class.java))
+        }
+        else {
+            Toast.makeText(this@InputCode, "Неверный код", Toast.LENGTH_SHORT).show()
+        }
+        if(bool){
+            with(binding){
+                num1.text = null
+                num2.text = null
+                num3.text = null
+                num4.text = null
+                num1.requestFocus()
             }
         }
     }

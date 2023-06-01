@@ -75,7 +75,7 @@ class InputRegist : AppCompatActivity() {
                         .build()
                     val api = Retrofit.Builder()
                         .addConverterFactory(GsonConverterFactory.create())
-                        .baseUrl("http://iis.ngknn.ru/NGKNN/%D0%9C%D0%B0%D0%BC%D1%88%D0%B5%D0%B2%D0%B0%D0%AE%D0%A1/MedicMadlab/")
+                        .baseUrl("https://medic.madskill.ru/")
                         .client(httpClient)
                         .build()
                     val requestApi = api.create(ApiRequest::class.java)

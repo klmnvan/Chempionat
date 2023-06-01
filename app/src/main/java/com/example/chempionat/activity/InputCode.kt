@@ -127,23 +127,22 @@ class InputCode : AppCompatActivity() {
                     .build()
                 val api = Retrofit.Builder()
                     .addConverterFactory(GsonConverterFactory.create())
-                    .baseUrl("http://iis.ngknn.ru/NGKNN/%D0%9C%D0%B0%D0%BC%D1%88%D0%B5%D0%B2%D0%B0%D0%AE%D0%A1/MedicMadlab/")
+                    .baseUrl("https://medic.madskill.ru/")
                     .client(httpClient)
                     .build()
                 val requestApi = api.create(ApiRequest::class.java)
                 CoroutineScope(Dispatchers.IO).launch {
                     try {
                         val response = requestApi.postCode(email, code).awaitResponse()
-                        if(response.isSuccessful){
-                            val data = response.body()!!
-                            runOnUiThread { Person.token = data }
+                        if (response.isSuccessful){
+                            Log.d(TAG, response.body().toString())
+                            Person.token = response.body()?.token.toString()
                         }
-                        Log.d(TAG, httpClient.toString())
-                        Log.d(TAG, httpClient.cache.toString())
-                        Log.d(TAG, httpClient.x509TrustManager.toString())
                         bool = false
-                        /*runOnUiThread { Toast.makeText(this@InputCode, "Код неверный",
-                            Toast.LENGTH_SHORT).show() }*/
+                        if(Person.token.isNotEmpty()){
+                            startActivity(Intent(this@InputCode, CreatePassword::class.java))
+                            runOnUiThread { Toast.makeText(this@InputCode, "Токин пришёл", Toast.LENGTH_SHORT).show() }
+                        }
                     }
                     catch (e: Exception){
                         bool = false
@@ -159,12 +158,6 @@ class InputCode : AppCompatActivity() {
                         /*startActivity(Intent(this@InputCode, CreatePassword::class.java))
                         finish()*/
                     }
-                }
-                if(Person.token.isNotEmpty()){
-                    Toast.makeText(this@InputCode, "Токин пришёл", Toast.LENGTH_SHORT).show()
-                }
-                else {
-                    Toast.makeText(this@InputCode, "Неверный код", Toast.LENGTH_SHORT).show()
                 }
                 if(bool){
                     with(binding){

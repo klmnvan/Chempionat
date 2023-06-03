@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.chempionat.Person
 import com.example.chempionat.databinding.ActivityMainBinding
 import java.util.concurrent.TimeUnit
 
@@ -17,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         pref = getSharedPreferences("Act", Context.MODE_PRIVATE)
-        var indAct: Int = pref.getInt("indAct", 1)
+        var indAct: Int = pref.getInt("indAct", 0)
         var thread: Thread = object : Thread(){
             override fun run() {
                 try {
@@ -45,5 +46,16 @@ class MainActivity : AppCompatActivity() {
             }
         }
         thread.start()
+        init()
+    }
+
+    /**
+     * init() - метод, в котором будет проходить инициализация данных в структуру Person из хранилища
+     * SharedPreferences
+     */
+    fun init(){
+        val prefPerson: SharedPreferences = getSharedPreferences("Person", Context.MODE_PRIVATE)
+        Person.token = prefPerson.getString("token", null).toString()
+        Person.password = prefPerson.getString("password", null).toString()
     }
 }

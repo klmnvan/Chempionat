@@ -6,17 +6,20 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
+import com.example.chempionat.Person
 import com.example.chempionat.R
 import com.example.chempionat.databinding.ActivityCreatePasswordBinding
+import com.example.chempionat.databinding.ActivityInputPasswordBinding
 
-class CreatePassword : AppCompatActivity() {
-    lateinit var binding: ActivityCreatePasswordBinding
+class InputPassword : AppCompatActivity() {
+    lateinit var binding: ActivityInputPasswordBinding
     var password: String? = null
     var index: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityCreatePasswordBinding.inflate(layoutInflater)
+        binding = ActivityInputPasswordBinding.inflate(layoutInflater)
         setContentView(binding.root)
         init()
     }
@@ -64,10 +67,17 @@ class CreatePassword : AppCompatActivity() {
             setPassword(index)
         }
         if(index == 4){
+            if(password == Person.password){
+                startActivity(Intent(this@InputPassword, CreateMap::class.java))
+            }
+            else{
+                Toast.makeText(this@InputPassword, "Неправильный пароль", Toast.LENGTH_LONG).show()
+                index = 0
+                password = ""
+            }
             val pref: SharedPreferences = getSharedPreferences("Person", Context.MODE_PRIVATE)
             pref.edit().putString("password", password.toString())
             pref.edit().apply()
-            startActivity(Intent(this@CreatePassword, CreateMap::class.java))
         }
 
     }

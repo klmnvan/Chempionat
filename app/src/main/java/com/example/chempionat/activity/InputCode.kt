@@ -1,7 +1,9 @@
 package com.example.chempionat.activity
 
 import android.content.ContentValues.TAG
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
@@ -54,6 +56,9 @@ class InputCode : AppCompatActivity() {
         timer.start()
     }
 
+    /**
+     * init() - отслеживает состояние объектов
+     */
     fun init()
     {
         with(binding){
@@ -118,6 +123,10 @@ class InputCode : AppCompatActivity() {
 
     }
 
+    /**
+     * отправка запросов на сервер, получение токена и возращение в первоначальное состояние полей ввода
+     * при неправильном коде
+     */
     fun verification(){
         with(binding){
             if(num1.text.isNotEmpty() && num2.text.isNotEmpty() && num3.text.isNotEmpty() && num4.text.isNotEmpty()){
@@ -127,7 +136,7 @@ class InputCode : AppCompatActivity() {
                 val httpClient = OkHttpClient.Builder()
                     .addInterceptor(interceptor)
                     .build()
-                val gson = GsonBuilder() //Нужно, чтобы получилось принять строку с сервера и убрать ошибку в консоли
+                val gson = GsonBuilder() //Нужно, чтобы получилось принять строку с апишки ЮС и убрать ошибку в консоли
                     .setLenient()
                     .create()
                 val api = Retrofit.Builder()
@@ -144,26 +153,12 @@ class InputCode : AppCompatActivity() {
                             Log.d(TAG, "ТОКИН: " + data)
                             Person.token = data
                             runOnUiThread { token() }
-                        /*
-                            runOnUiThread { Person.token = data }*/
                         }
                         bool = false
-                        /*runOnUiThread { Toast.makeText(this@InputCode, "Код неверный",
-                            Toast.LENGTH_SHORT).show() }*/
                     }
                     catch (e: Exception){
                         bool = false
                         Log.d(TAG, e.toString())
-                        /*var prefPerson: SharedPreferences = getSharedPreferences("Person", Context.MODE_PRIVATE)
-                        var eP = prefPerson.edit()
-                        eP.putString("email", email)
-                        eP.apply()
-                        var prefAct: SharedPreferences = getSharedPreferences("Act", Context.MODE_PRIVATE)
-                        var eA = prefAct.edit()
-                        eA.putInt("indAct", 2)
-                        eA.apply()*/
-                        /*startActivity(Intent(this@InputCode, CreatePassword::class.java))
-                        finish()*/
                     }
                 }
             }
@@ -173,14 +168,19 @@ class InputCode : AppCompatActivity() {
     fun token(){
         Log.d(TAG, "Я зашёл в token()")
         if(Person.token.isNotEmpty()){
-            Toast.makeText(this@InputCode, "Токин пришёл", Toast.LENGTH_SHORT).show()
-            Log.d(TAG, "ТОКИН ПРИШЁЛ И ВСЁ ШИКАРНО")
+            val pref: SharedPreferences = getSharedPreferences("Person", Context.MODE_PRIVATE)
+            val tokenPref = pref.edit()
+            tokenPref.putString("token", Person.token) //добавляем токин в хранилище
+            tokenPref.apply()
+            val prefAct: SharedPreferences = getSharedPreferences("Act", Context.MODE_PRIVATE)
+            val eA = prefAct.edit()
+            eA.putInt("indAct", 2)
+            eA.apply()
             startActivity(Intent(this@InputCode, CreatePassword::class.java))
+            finish()
         }
         else {
             Toast.makeText(this@InputCode, "Неверный код", Toast.LENGTH_SHORT).show()
-        }
-        if(bool){
             with(binding){
                 num1.text = null
                 num2.text = null

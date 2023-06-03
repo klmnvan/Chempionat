@@ -11,7 +11,7 @@ import com.example.chempionat.databinding.ActivityCreatePasswordBinding
 
 class CreatePassword : AppCompatActivity() {
     lateinit var binding: ActivityCreatePasswordBinding
-    var password: String? = null
+    var password: String = ""
     var index: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,13 +64,19 @@ class CreatePassword : AppCompatActivity() {
             setPassword(index)
         }
         if(index == 4){
+            val prefAct: SharedPreferences = getSharedPreferences("Act", Context.MODE_PRIVATE)
+            val e = prefAct.edit()
+            e.putInt("indAct", 3)
+            e.apply()
             val pref: SharedPreferences = getSharedPreferences("Person", Context.MODE_PRIVATE)
-            pref.edit().putString("password", password.toString())
-            pref.edit().apply()
+            val prefPas = pref.edit()
+            prefPas.putString("password", password.toString())
+            prefPas.apply()
             startActivity(Intent(this@CreatePassword, CreateMap::class.java))
         }
 
     }
+    @SuppressLint("UseCompatLoadingForDrawables")
     fun setPassword(point: Int){
         with(binding){
             when (point){

@@ -18,7 +18,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="tiramisu">
         <activity
-            android:name=".InputPassword"
+            android:name=".activity.InputPassword"
             android:exported="false" />
         <activity
             android:name=".activity.Home"

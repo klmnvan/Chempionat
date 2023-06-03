@@ -6,15 +6,17 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Parcel
+import android.os.Parcelable
 import android.widget.Toast
 import com.example.chempionat.Person
 import com.example.chempionat.R
 import com.example.chempionat.databinding.ActivityCreatePasswordBinding
 import com.example.chempionat.databinding.ActivityInputPasswordBinding
 
-class InputPassword : AppCompatActivity() {
+class InputPassword: AppCompatActivity() {
     lateinit var binding: ActivityInputPasswordBinding
-    var password: String? = null
+    var password: String = ""
     var index: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -73,6 +75,7 @@ class InputPassword : AppCompatActivity() {
             else{
                 Toast.makeText(this@InputPassword, "Неправильный пароль", Toast.LENGTH_LONG).show()
                 index = 0
+                setPassword(index)
                 password = ""
             }
             val pref: SharedPreferences = getSharedPreferences("Person", Context.MODE_PRIVATE)
@@ -81,6 +84,7 @@ class InputPassword : AppCompatActivity() {
         }
 
     }
+    @SuppressLint("UseCompatLoadingForDrawables")
     fun setPassword(point: Int){
         with(binding){
             when (point){

@@ -1,5 +1,6 @@
 package com.example.chempionat.activity
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -16,8 +17,10 @@ class OnBoard : AppCompatActivity(), GestureDetector.OnGestureListener {
     lateinit var binding: ActivityOnBoardBinding
     lateinit var queue: Queue<OnBoardModel>
     lateinit var gestureDetector: GestureDetector
+    @SuppressLint("UseCompatLoadingForDrawables")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityOnBoardBinding.inflate(layoutInflater)
         setContentView(binding.root)
         gestureDetector = GestureDetector(this@OnBoard, this@OnBoard)
         queue = LinkedList(listOf(
@@ -31,7 +34,7 @@ class OnBoard : AppCompatActivity(), GestureDetector.OnGestureListener {
                 getDrawable(R.drawable.icon_analizi)!!, getDrawable(R.drawable.point_style_stroke)!!,
                 getDrawable(R.drawable.point_style_stroke)!!,getDrawable(R.drawable.point_style_blue)!!,)
         ))
-        enterOnBoard(queue.poll())
+        enterOnBoard(queue.poll()!!)
         init()
     }
 
@@ -82,13 +85,13 @@ class OnBoard : AppCompatActivity(), GestureDetector.OnGestureListener {
     }
 
     override fun onFling(e1: MotionEvent, e2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
-        var diffX = e2.x - e1.x
-        var diffY = e2.y - e1.y
+        val diffX = e2.x - e1.x
+        val diffY = e2.y - e1.y
         if(abs(diffX)>abs(diffY)){
             if(abs(diffX) > 100 && abs(velocityX) > 100){
                 if(diffX < 0){
                     if(queue.size != 0){
-                        enterOnBoard(queue.poll())
+                        enterOnBoard(queue.poll()!!)
                     }
                 }
             }

@@ -7,15 +7,25 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.chempionat.Person
 import com.example.chempionat.databinding.ActivityMainBinding
+import com.example.chempionat.models.PersonModel
+import io.paperdb.Paper
 import java.util.concurrent.TimeUnit
 
 /**
-"Act" - хранилище состояний приложения. "indAct" - текущее состояние
-0 - первый запуск, пользователь видит OnBoard
-1 - пользователь больше не видит OnBoard и сразу переключается на окно регистрации
-2 - пользователь зарегистрирован, получен токен, открывается окно создания пароля
-3 - пользователь создал пароль, открывается окно ввода пароля
+ * SHARED PREFERENCES - позволяет сохранять простые типы данных на устройстве
+ * "Act" - хранилище состояний приложения. ТЕГИ: "indAct" - текущее состояние
+ * 0 - первый запуск, пользователь видит OnBoard
+ * 1 - пользователь больше не видит OnBoard и сразу переключается на окно регистрации
+ * 2 - пользователь зарегистрирован, получен токен, открывается окно создания пароля
+ * 3 - пользователь создал пароль, открывается окно ввода пароля
+ * "Person" - хранилище данных о пользователе. Здесь хранится:
+ * 1. Токен пользователя (тег "token")
+ * 2. Пароль пользователя для входа в приложение (тег "password")
+ * 3. Почта пользователя (тег "email")
+ * PAPER - позволяет сохранять списки объектов любого типа, необходимо подключать доп библиотеку
+ * "person" - содержит структуру карты пациента
  */
+@Suppress("CAST_NEVER_SUCCEEDS")
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
     lateinit var pref: SharedPreferences
@@ -23,6 +33,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        Paper.init(this@MainActivity)
         pref = getSharedPreferences("Act", Context.MODE_PRIVATE)
         var indAct: Int = pref.getInt("indAct", 0).toInt()
         indAct = 3
@@ -63,9 +74,12 @@ class MainActivity : AppCompatActivity() {
      * init() - метод, в котором будет проходить инициализация данных в структуру Person из хранилища
      * SharedPreferences
      */
+    @Suppress("IMPLICIT_NOTHING_TYPE_ARGUMENT_IN_RETURN_POSITION")
     fun init(){
         val prefPerson: SharedPreferences = getSharedPreferences("Person", Context.MODE_PRIVATE)
         Person.token = prefPerson.getString("token", "1").toString()
         Person.password = prefPerson.getString("password", "0000").toString()
+        Person.person = Paper.book().read("person", null)
+        var i = 0
     }
 }

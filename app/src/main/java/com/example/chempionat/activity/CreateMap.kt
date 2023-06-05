@@ -1,5 +1,6 @@
 package com.example.chempionat.activity
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
@@ -14,6 +15,7 @@ import com.example.chempionat.databinding.ActivityCreateMapBinding
 import com.example.chempionat.models.AddressModel
 import com.example.chempionat.Person
 import com.example.chempionat.models.PersonModel
+import io.paperdb.Paper
 
 class CreateMap : AppCompatActivity(), FragmentAddress.Listener {
     lateinit var binding: ActivityCreateMapBinding
@@ -25,7 +27,9 @@ class CreateMap : AppCompatActivity(), FragmentAddress.Listener {
         super.onCreate(savedInstanceState)
         binding = ActivityCreateMapBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        Paper.init(this@CreateMap)
         binding.spinnerGender.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            @SuppressLint("UseCompatLoadingForDrawables")
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 val tv = view as TextView
                 index = position
@@ -55,8 +59,8 @@ class CreateMap : AppCompatActivity(), FragmentAddress.Listener {
         init()
     }
     fun init(){
-        binding.adress.setOnClickListener(){
-
+        binding.buttonCreate.setOnClickListener(){
+            startActivity(Intent(this@CreateMap, Home::class.java))
         }
         binding.adress.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -65,6 +69,7 @@ class CreateMap : AppCompatActivity(), FragmentAddress.Listener {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             }
 
+            @SuppressLint("UseCompatLoadingForDrawables")
             override fun afterTextChanged(s: Editable?) {
                 binding.adress.background = getDrawable(R.drawable.map_input_style)
                 textChecked()
@@ -77,6 +82,7 @@ class CreateMap : AppCompatActivity(), FragmentAddress.Listener {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             }
 
+            @SuppressLint("UseCompatLoadingForDrawables")
             override fun afterTextChanged(s: Editable?) {
                 binding.inputTextPatronymic.background = getDrawable(R.drawable.map_input_style)
                 textChecked()
@@ -89,6 +95,7 @@ class CreateMap : AppCompatActivity(), FragmentAddress.Listener {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             }
 
+            @SuppressLint("UseCompatLoadingForDrawables")
             override fun afterTextChanged(s: Editable?) {
                 binding.inputTextSurname.background = getDrawable(R.drawable.map_input_style)
                 textChecked()
@@ -101,6 +108,7 @@ class CreateMap : AppCompatActivity(), FragmentAddress.Listener {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             }
 
+            @SuppressLint("UseCompatLoadingForDrawables")
             override fun afterTextChanged(s: Editable?) {
                 binding.inputTextBirthday.background = getDrawable(R.drawable.map_input_style)
                 textChecked()
@@ -112,14 +120,16 @@ class CreateMap : AppCompatActivity(), FragmentAddress.Listener {
         }
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     fun textChecked()
     {
-        if(binding!!.adress.text.isNotEmpty() && binding!!.inputTextPatronymic.text.isNotEmpty()
-            && binding!!.inputTextSurname.text.isNotEmpty() && binding!!.inputTextBirthday.text.isNotEmpty() && index != 0){
-            binding!!.buttonCreate.background = getDrawable(R.drawable.shape_button2)
-            binding!!.buttonCreate.setOnClickListener{
+        if(binding.adress.text.isNotEmpty() && binding.inputTextPatronymic.text.isNotEmpty()
+            && binding.inputTextSurname.text.isNotEmpty() && binding.inputTextBirthday.text.isNotEmpty() && index != 0){
+            binding.buttonCreate.background = getDrawable(R.drawable.shape_button2)
+            binding.buttonCreate.setOnClickListener{
                 Person.person = PersonModel(0,binding.inputTextSurname.text.toString(),binding.adress.text.toString(),binding.inputTextPatronymic.text.toString(),
                     binding.inputTextBirthday.text.toString(), gender,"1")
+                Paper.book().write("person", Person.person!!)
                 val intent = Intent(this@CreateMap, Home::class.java)
                 startActivity(intent)
             }

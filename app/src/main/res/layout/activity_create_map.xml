@@ -70,7 +70,7 @@
         android:background="@drawable/map_input_style_null"
         android:ems="10"
         android:inputType="textPersonName"
-        android:hint="Адрес"
+        android:hint="Имя"
         android:textSize="15dp"
         android:fontFamily="@font/pro_display"
         android:textColorHint="#939396"

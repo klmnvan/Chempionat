@@ -1,10 +1,12 @@
 package com.example.chempionat.activity
 
 import android.content.ContentValues
+import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.chempionat.api.*
 import com.example.chempionat.databinding.ActivityHomeBinding
 import kotlinx.coroutines.CoroutineScope
@@ -19,11 +21,16 @@ class Home : AppCompatActivity(), AdapterCategory.Listener {
     val adapterNews = AdapterNews()
     val adapterCategory = AdapterCategory(this)
     val adapterCatalog = AdapterCatalog()
+    lateinit var refreshLayout: SwipeRefreshLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.refreshLayout.setOnRefreshListener {
+            getData()
+            binding.refreshLayout.isRefreshing = false
+        }
         getData()
     }
 
@@ -61,7 +68,7 @@ class Home : AppCompatActivity(), AdapterCategory.Listener {
     fun getData(){
         val api = Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl("https://medic.madskill.ru")
+            .baseUrl("http://iis.ngknn.ru/NGKNN/%D0%9C%D0%B0%D0%BC%D1%88%D0%B5%D0%B2%D0%B0%D0%AE%D0%A1/MedicMadlab/")
             .build()
             .create(ApiRequest::class.java)
         CoroutineScope(Dispatchers.IO).launch {
@@ -89,5 +96,10 @@ class Home : AppCompatActivity(), AdapterCategory.Listener {
         adapterCatalog.listCatalog.clear()
         val listCatalog = allListCatalog.filter { it.category == catalog }
         initCatalog(listCatalog)
+    }
+
+    fun onRefresh() {
+        getData()
+        Log.d(TAG, "Обновление началось")
     }
 }

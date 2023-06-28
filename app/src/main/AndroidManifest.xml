@@ -21,7 +21,7 @@
             android:name=".activity.InputPassword"
             android:exported="false" />
         <activity
-            android:name=".activity.Home"
+            android:name=".activity.MainActivity"
             android:exported="false" />
         <activity
             android:name=".activity.CreateMap"
@@ -39,7 +39,7 @@
             android:name=".activity.OnBoard"
             android:exported="false" />
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".activity.Home"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

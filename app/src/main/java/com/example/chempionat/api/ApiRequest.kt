@@ -4,9 +4,9 @@ import retrofit2.Call
 import retrofit2.http.*
 
 interface ApiRequest {
-    @GET("/api/catalog")
+    @GET("api/Catalog")
     fun getCatalog(): Call<List<CatalogModel>>
-    @GET("/api/news")
+    @GET("api/News")
     fun getNews(): Call<List<NewsModel>>
     @POST("api/SendCode")
     fun postEmail(@Header("User-email") email: String): Call<String>

@@ -1,11 +1,10 @@
 package com.example.chempionat.activity
 
 import android.content.ContentValues
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.chempionat.R
 import com.example.chempionat.api.*
 import com.example.chempionat.databinding.ActivityHomeBinding
 import kotlinx.coroutines.CoroutineScope
@@ -14,7 +13,6 @@ import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.awaitResponse
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 
 class Home : AppCompatActivity(), AdapterCategory.Listener {
     lateinit var binding: ActivityHomeBinding
@@ -22,7 +20,6 @@ class Home : AppCompatActivity(), AdapterCategory.Listener {
     val adapterCategory = AdapterCategory(this)
     val adapterCatalog = AdapterCatalog()
 
-    ///ИЗМЕНЕНИЯ ДЛЯ ГИТА
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
@@ -75,11 +72,11 @@ class Home : AppCompatActivity(), AdapterCategory.Listener {
                     runOnUiThread { initNews(response.body()!!) }
                 }
                 if(responseCat.isSuccessful){
-                    var data = responseCat.body()!!
-                    var listCategory = data.map { it.category }.toSet().toList()
+                    val data = responseCat.body()!!
+                    val listCategory = data.map { it.category }.toSet().toList()
                     runOnUiThread { initCategory(listCategory) }
                     allListCatalog = data
-                    var listCatalog = allListCatalog.filter { it.category == listCategory[0] }
+                    val listCatalog = allListCatalog.filter { it.category == listCategory[0] }
                     runOnUiThread { initCatalog(listCatalog) }
                 }
             } catch (e: Exception){
@@ -90,7 +87,7 @@ class Home : AppCompatActivity(), AdapterCategory.Listener {
 
     override fun getCatalog(catalog: String, position: Int) {
         adapterCatalog.listCatalog.clear()
-        var listCatalog = allListCatalog.filter { it.category == catalog }
+        val listCatalog = allListCatalog.filter { it.category == catalog }
         initCatalog(listCatalog)
     }
 }

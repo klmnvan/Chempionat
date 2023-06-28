@@ -1,14 +1,15 @@
 package com.example.chempionat.activity
 
-import android.content.ContentValues
 import android.content.ContentValues.TAG
+import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.example.chempionat.R
 import com.example.chempionat.api.ApiRequest
 import com.example.chempionat.databinding.ActivityInputRegistBinding
@@ -20,7 +21,6 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.awaitResponse
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.concurrent.TimeUnit
 
 class InputRegist : AppCompatActivity() {
     lateinit var binding: ActivityInputRegistBinding
@@ -88,9 +88,12 @@ class InputRegist : AppCompatActivity() {
                             Log.d(TAG, e.toString())
                         }
                     }
-                    var intent = Intent(this@InputRegist, InputCode::class.java)
-                    intent.putExtra("email", email)
-                    startActivity(intent)
+                    var pref: SharedPreferences = getSharedPreferences("Person", Context.MODE_PRIVATE)
+                    var e = pref.edit()
+                    e.putString("email", email)
+                    e.apply()
+                    //intent.putExtra("email", email)
+                    startActivity(Intent(this@InputRegist, InputCode::class.java))
                     finish()
                 }
                 else{

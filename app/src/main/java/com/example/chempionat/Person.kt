@@ -10,4 +10,5 @@ object Person {
     var person: PersonModel? = null
     lateinit var token: String
     lateinit var password: String
+    lateinit var email: String
 }

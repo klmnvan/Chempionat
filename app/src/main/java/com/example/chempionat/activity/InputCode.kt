@@ -35,8 +35,8 @@ class InputCode : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityInputCodeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        var arguments = intent.extras
-        email = arguments?.getString("email").toString()
+        val pref: SharedPreferences = getSharedPreferences("Person", Context.MODE_PRIVATE)
+        email = pref.getString("email", "example@mail.ru").toString()
         init()
         timer()
     }

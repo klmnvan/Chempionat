@@ -1,21 +1,31 @@
 package com.example.chempionat.activity
 
 import android.annotation.SuppressLint
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import com.example.chempionat.Person
 import com.example.chempionat.R
+import com.example.chempionat.api.ApiRequest
 import com.example.chempionat.databinding.ActivityCreateMapBinding
 import com.example.chempionat.models.AddressModel
-import com.example.chempionat.Person
 import com.example.chempionat.models.PersonModel
 import io.paperdb.Paper
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class CreateMap : AppCompatActivity(), FragmentAddress.Listener {
     lateinit var binding: ActivityCreateMapBinding
@@ -129,9 +139,31 @@ class CreateMap : AppCompatActivity(), FragmentAddress.Listener {
             binding.buttonCreate.setOnClickListener{
                 Person.person = PersonModel(0,binding.inputTextSurname.text.toString(),binding.adress.text.toString(),binding.inputTextPatronymic.text.toString(),
                     binding.inputTextBirthday.text.toString(), gender,"1")
+                val interceptor = HttpLoggingInterceptor()
+                interceptor.level = HttpLoggingInterceptor.Level.BODY
+                val httpClient = OkHttpClient.Builder()
+                    .addInterceptor(interceptor)
+                    .build()
+                val api = Retrofit.Builder()
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .baseUrl("http://iis.ngknn.ru/NGKNN/%D0%9C%D0%B0%D0%BC%D1%88%D0%B5%D0%B2%D0%B0%D0%AE%D0%A1/MedicMadlab/")
+                    .client(httpClient)
+                    .build()
+                val requestApi = api.create(ApiRequest::class.java)
+                CoroutineScope(Dispatchers.IO).launch {
+                    try {
+                        val bearer = "Bearer ${Person.token}"
+                        requestApi.postProfile(bearer)
+                        Log.d(TAG, "Success")
+                    }
+                    catch (e: Exception){
+                        Log.d(TAG, e.toString())
+                    }
+                }
+
+
                 Paper.book().write("person", Person.person!!)
-                val intent = Intent(this@CreateMap, Home::class.java)
-                startActivity(intent)
+                startActivity(Intent(this@CreateMap, Home::class.java))
             }
         }
     }

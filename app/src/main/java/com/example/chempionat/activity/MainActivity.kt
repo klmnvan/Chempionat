@@ -7,7 +7,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.chempionat.Person
 import com.example.chempionat.databinding.ActivityMainBinding
-import com.example.chempionat.models.PersonModel
 import io.paperdb.Paper
 import java.util.concurrent.TimeUnit
 
@@ -79,7 +78,7 @@ class MainActivity : AppCompatActivity() {
         val prefPerson: SharedPreferences = getSharedPreferences("Person", Context.MODE_PRIVATE)
         Person.token = prefPerson.getString("token", "1").toString()
         Person.password = prefPerson.getString("password", "0000").toString()
+        Person.email = prefPerson.getString("email", "example@mail.ru").toString()
         Person.person = Paper.book().read("person", null)
-        var i = 0
     }
 }
